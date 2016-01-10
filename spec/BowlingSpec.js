@@ -31,10 +31,29 @@ it("the score from frame1 and frame2 should add on to the game's score", functio
   expect(bowling_game.score).toEqual(7);
 });
 
-it("should not allow the total of frame1 and frame2 to total more than 10", function() {
-  expect(function(){bowling_game.frame_score(6,6);}).toThrow("error frame score cannot be above 10");
+
 });
 
+describe("valid_total_score", function() {
+  it("should not allow the total of frame1 and frame2 to total more than 10", function() {
+    expect(function(){bowling_game.valid_total_score(6,6);}).toThrow("error frame score cannot be above 10 or below 0");
+  });
+
+
+it("should not allow the total of frame1 and frame2 to total less than 0", function() {
+  expect(function(){bowling_game.valid_total_score(-5,4);}).toThrow("error frame score cannot be above 10 or below 0");
+});
+});
+
+describe("valid_score", function() {
+  it("should not allow the value of frame1 or frame2 to be more than 10", function() {
+    expect(function(){bowling_game.valid_score(10,6);}).toThrow("error frame score cannot be above 10 or below 0");
+  });
+
+
+it("should not allow the total of frame1 and frame2 to total less than 0", function() {
+  expect(function(){bowling_game.valid_score(-5,4);}).toThrow("error frame score cannot be above 10 or below 0");
+});
 });
 
 
