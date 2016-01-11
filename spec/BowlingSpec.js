@@ -66,7 +66,15 @@ describe("frame_history", function() {
 it("should store the total score of previous frames in an array", function() {
   bowling_game.frame_score(3,5)
   bowling_game.frame_score(7,2)
-  expect(bowling_game.frame_history).toEqual([8,9])
+  expect(bowling_game.score_history).toEqual([8,9])
+});
+});
+
+describe("strike", function() {
+it("should double the score of the next frame and add it to 10", function() {
+  bowling_game.frame_score(10,0)
+  bowling_game.frame_score(7,2)
+  expect(bowling_game.score).toEqual(28)
 });
 });
 
