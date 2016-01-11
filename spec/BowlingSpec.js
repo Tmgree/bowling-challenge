@@ -76,6 +76,18 @@ it("should double the score of the next frame and add it to 10", function() {
   bowling_game.frame_score(7,2)
   expect(bowling_game.score).toEqual(28)
 });
+
+it("should push true into strike history if a strike was achieved", function() {
+  bowling_game.frame_score(10,0)
+  expect(bowling_game.strike_history[0]).toEqual(true)
+});
+
+it("should double the score of the next frame and add it to 10", function() {
+  bowling_game.frame_score(10,0);
+  bowling_game.frame_score(10,0);
+  bowling_game.frame_score(4,2);
+  expect(bowling_game.score).toEqual(46)
+});
 });
 
 

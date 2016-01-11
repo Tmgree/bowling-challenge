@@ -4,6 +4,7 @@ function Bowling_game() {
   this.frame_history = [];
   this.frame =1;
   this.is_strike = false;
+  this.strike_history = [];
 }
 
 
@@ -53,6 +54,9 @@ Bowling_game.prototype.end_game = function() {
 
 Bowling_game.prototype.strike = function() {
       if(this.frame_history[this.frame_history.length-2] === 10)
-          {this.is_strike = true;}
+          {this.is_strike = true;
+          this.strike_history.push(true);}
+      else {
+        this.strike_history.push(false);}
 
 }
