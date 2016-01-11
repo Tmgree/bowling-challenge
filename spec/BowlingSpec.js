@@ -15,6 +15,12 @@ describe("frame", function() {
 it("default frame should be 1", function() {
   expect(bowling_game.frame).toEqual(1);
 });
+
+it("should end the game after 10 frames", function() {
+  bowling_game.frame = 10;
+  expect(function(){bowling_game.frame_score(3, 4)}).toThrow("You have finished your 10 frames, your final score was 7");
+});
+
 });
 
 describe("increase_frame", function() {
@@ -47,12 +53,20 @@ it("should not allow the total of frame1 and frame2 to total less than 0", funct
 
 describe("valid_score", function() {
   it("should not allow the value of frame1 or frame2 to be more than 10", function() {
-    expect(function(){bowling_game.valid_score(10,6);}).toThrow("error frame score cannot be above 10 or below 0");
+    expect(function(){bowling_game.valid_score(15,6);}).toThrow("error frame score cannot be above 10 or below 0");
   });
 
 
 it("should not allow the total of frame1 and frame2 to total less than 0", function() {
   expect(function(){bowling_game.valid_score(-5,4);}).toThrow("error frame score cannot be above 10 or below 0");
+});
+});
+
+describe("frame_history", function() {
+it("should store the total score of previous frames in an array", function() {
+  bowling_game.frame_score(3,5)
+  bowling_game.frame_score(7,2)
+  expect(bowling_game.frame_history).toEqual([8,9])
 });
 });
 
