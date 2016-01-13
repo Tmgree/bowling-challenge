@@ -15,9 +15,9 @@ Bowling_game.prototype.frame_score = function(frame1_score, frame2_score) {
   this.frame_history.push(frame1_score);
   this.frame_history.push(frame2_score);
   this.add_score(frame1_score, frame2_score);
-  this.strike();
   this.end_game();
   this.increase_frame();
+  this.strike();
 }
 
 Bowling_game.prototype.add_score = function(frame1_score, frame2_score) {
@@ -25,7 +25,7 @@ Bowling_game.prototype.add_score = function(frame1_score, frame2_score) {
     this.score += frame1_score + frame2_score;
   }
   else if(this.is_strike === true){
-    this.score += 2*(frame1_score + frame2_score);
+    this.score += 2*(frame1_score + frame2_score)
     this.is_strike = false;
   }
 }
@@ -52,10 +52,11 @@ Bowling_game.prototype.end_game = function() {
   if(this.frame === 10) {throw("You have finished your 10 frames, your final score was " + this.score)}
 }
 
-Bowling_game.prototype.strike = function() {
+Bowling_game.prototype.strike = function(frame1_score,frame2_score) {
       if(this.frame_history[this.frame_history.length-2] === 10)
           {this.is_strike = true;
-          this.strike_history.push(true);}
+          this.strike_history.push(true);
+        }
       else {
         this.strike_history.push(false);}
 
