@@ -6,7 +6,7 @@ function Bowling_game() {
   this.is_strike = false;
   this.strike_history = [];
 }
-
+var temp_score = 0;
 
 Bowling_game.prototype.frame_score = function(frame1_score, frame2_score) {
   this.valid_score(frame1_score, frame2_score);
@@ -15,19 +15,27 @@ Bowling_game.prototype.frame_score = function(frame1_score, frame2_score) {
   this.frame_history.push(frame1_score);
   this.frame_history.push(frame2_score);
   this.add_score(frame1_score, frame2_score);
+  this.strike(frame1_score, frame2_score);
   this.end_game();
   this.increase_frame();
-  this.strike();
 }
 
 Bowling_game.prototype.add_score = function(frame1_score, frame2_score) {
+  if(this.strike_history.length < 2){
   if(this.is_strike === false){
     this.score += frame1_score + frame2_score;
   }
   else if(this.is_strike === true){
-    this.score += 2*(frame1_score + frame2_score)
+    this.score += 2*(frame1_score + frame2_score);
     this.is_strike = false;
   }
+}
+else {
+  if(this.strike_history[this.strike_history.length-1] === true && this.strike_history[this.strike_history.length-2] === true){
+    this.score += 2*(frame1_score + frame2_score)+frame1_score;
+    this.is_strike = false;
+  }
+}
 }
 
 Bowling_game.prototype.increase_frame = function() {
@@ -53,7 +61,7 @@ Bowling_game.prototype.end_game = function() {
 }
 
 Bowling_game.prototype.strike = function(frame1_score,frame2_score) {
-      if(this.frame_history[this.frame_history.length-2] === 10)
+      if(frame1_score === 10)
           {this.is_strike = true;
           this.strike_history.push(true);
         }
