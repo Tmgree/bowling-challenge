@@ -104,6 +104,40 @@ it("consecutive spares", function() {
   expect(bowling_game.score).toEqual(30)
 });
 
+it("should allow me to input any frame scores and equal the correct total score", function() {
+  bowling_game.frame_score(10,0)
+  bowling_game.frame_score(10,0)
+  bowling_game.frame_score(9,1)
+  bowling_game.frame_score(4,3)
+  expect(bowling_game.score).toEqual(70)
+});
+
+});
+
+describe("eleventh_frame", function() {
+it("should allow an eleventh frame if eleventh_frame is true", function() {
+  bowling_game.frame = 10;
+  bowling_game.eleventh_frame = true;
+  bowling_game.frame_score(4,3);
+  expect(function(){bowling_game.frame_score(3,3)}).toThrow("You have finished your 11 frames, your final score was 7");
+});
+
+it("should allow an eleventh frame if user got strike in 10th frame", function() {
+  bowling_game.frame = 9;
+  bowling_game.frame_score(10,0);
+  bowling_game.frame_score(3,3)
+  expect(function(){bowling_game.frame_score(3,3)}).toThrow("You have finished your 11 frames, your final score was 22");
+});
+
+it("should allow an eleventh frame if user got strike in 9th and 10th frame", function() {
+  bowling_game.frame = 8;
+  bowling_game.frame_score(10,0);
+  bowling_game.frame_score(10,0);
+  bowling_game.frame_score(3,3);
+  expect(function(){bowling_game.frame_score(3,3)}).toThrow("You have finished your 11 frames, your final score was 45");
+});
+
+
 });
 
 
