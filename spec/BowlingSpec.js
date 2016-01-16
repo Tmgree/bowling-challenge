@@ -90,5 +90,21 @@ it("should double the score of the next frame and add it to 10", function() {
 });
 });
 
+describe("spare", function() {
+it("should add the score of the next roll if a spare is achieved", function() {
+  bowling_game.frame_score(1,9)
+  bowling_game.frame_score(8,1)
+  expect(bowling_game.score).toEqual(27)
+});
+
+it("consecutive spares", function() {
+  bowling_game.frame_score(1,9)
+  bowling_game.frame_score(1,9)
+  bowling_game.frame_score(2,5)
+  expect(bowling_game.score).toEqual(30)
+});
+
+});
+
 
 });

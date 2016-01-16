@@ -5,6 +5,8 @@ function Bowling_game() {
   this.frame =1;
   this.is_strike = false;
   this.strike_history = [];
+  this.is_spare = false;
+  this.spare_history = [];
 }
 var temp_score = 0;
 
@@ -16,13 +18,20 @@ Bowling_game.prototype.frame_score = function(frame1_score, frame2_score) {
   this.frame_history.push(frame2_score);
   this.add_score(frame1_score, frame2_score);
   this.strike(frame1_score, frame2_score);
+  this.spare(frame1_score, frame2_score);
   this.end_game();
   this.increase_frame();
 }
 
 Bowling_game.prototype.add_score = function(frame1_score, frame2_score) {
-  if(this.strike_history.length < 2){
-  if(this.is_strike === false){
+    if(this.strike_history.length < 2){
+
+    if(this.is_spare === true){
+     this.score += frame1_score + frame2_score + frame1_score;
+     this.is_spare = false;
+   }
+
+  else if(this.is_strike === false && this.is_spare === false){
     this.score += frame1_score + frame2_score;
   }
   else if(this.is_strike === true){
@@ -35,6 +44,21 @@ else {
     this.score += 2*(frame1_score + frame2_score)+frame1_score;
     this.is_strike = false;
   }
+
+  else if(this.is_strike === false && this.is_spare === false){
+    this.score += frame1_score + frame2_score;
+  }
+
+  else if(this.is_spare === true){
+   this.score += frame1_score + frame2_score + frame1_score;
+   this.is_spare = false;
+ }
+
+ else if(this.is_strike === true){
+   this.score += 2*(frame1_score + frame2_score);
+   this.is_strike = false;
+ }
+
 }
 }
 
@@ -67,5 +91,15 @@ Bowling_game.prototype.strike = function(frame1_score,frame2_score) {
         }
       else {
         this.strike_history.push(false);}
+
+}
+
+Bowling_game.prototype.spare = function(frame1_score,frame2_score) {
+      if(frame1_score+frame2_score === 10 && frame1_score !== 10)
+          {this.is_spare = true;
+          this.spare_history.push(true);
+        }
+      else {
+        this.spare_history.push(false);}
 
 }
